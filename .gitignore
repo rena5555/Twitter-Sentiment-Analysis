@@ -1,0 +1,6 @@
+*.csv
+*.pkl
+App/vectorizer.pkl
+App/samp.csv
+App/model.pkl
+Data/tweets.csv
