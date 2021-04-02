@@ -100,6 +100,7 @@ Using AWS Sagemaker, Multinomial Baive Bayes and Logistic Regression models were
 **Logistic Regression**
 * Logistic Regression uses a cost function called Sigmoid function(between 0 and 1)
 * Sigmoid function maps predicted values to a value between 0 and 1
+* A threshold is specified that indicates at what value the example will be put into one class vs. the other class
 * Logistic regression assumes that the dependent variable is categorical in nature and the independent 
   variable should not have multi-collinearity.
 * LR produces an **accuracy of 79% on testing data**. Train accuracy was 83%.
