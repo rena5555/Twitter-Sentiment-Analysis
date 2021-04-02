@@ -30,7 +30,7 @@ Sentiment analysis is also known as opinion mining and emotion AI. It is a NLP t
 
 * The following steps were taken for data cleaning:
 
-    1. **Tojenization**: Tokenization is the process of splitting up a single string of text into a list of  
+    1. **Tokenization**: Tokenization is the process of splitting up a single string of text into a list of  
                          individual words, or tokens. In order to feed our text data to a classification model, we first need to tokenize it. Python has a built in string method(string.split()), that splits up any given string into a list based on a splitting character
     2. **Stemming**:  Reduces a word to the base or root word using PorterStemmer
     3. **Lowercase**: Lowercase the tweets
@@ -45,7 +45,7 @@ Sentiment analysis is also known as opinion mining and emotion AI. It is a NLP t
 
     ![picture](Images/Top_Ten_Usernames.png)
 
-    * What_bugs_you username has the most tweets and looking at the tweets below, we can see that this is most     
+    * What_bugs_you username has the most tweets and looking at the tweets below, we can see that this is most    
       likely a Twitter bot. 
 
     ![picture](Images/What_Bugs_You.png)
@@ -80,37 +80,37 @@ According to [research](https://en.wikipedia.org/wiki/Sentiment_analysis) "the a
 Using AWS Sagemaker, Multinomial Baive Bayes and Logistic Regression models were implemented on the full dataset. Test size was 5% of the dataset.
 
 **Feature Weighting**
-         - Using TF-IDF, weights are assigned to words. Words unique to a particular document have higher weight than 
-           common words used across documents.
-         - TF-IDF means Term Frequency — Inverse Document Frequency
-         - TD-IDF is a statistic which defines how important a word is for a document
-         - If a word appears in a document, TD-IDF is increased but if it appears in other docuements, TD-IDF value  
-           decreases.
+* Using TF-IDF, weights are assigned to words. Words unique to a particular document have higher weight than 
+  common words used across documents.
+* TF-IDF means Term Frequency — Inverse Document Frequency
+* TD-IDF is a statistic which defines how important a word is for a document
+* If a word appears in a document, TD-IDF is increased but if it appears in other docuements, TD-IDF value  
+  decreases.
 * Using N_gram range  = 1,2 and max_features = 500,000 provided the greatest accuracy
 
 **Model Selection**
 
 **Multinomial Naïve Bayes** 
-        - Consideres a feature vector where a given term represents the number of times it appears
-        - MNB assumes that the value of a particular feature is independent of the value of any other feature
-        - Multinomial Bayes produces an **accuracy of 78% on testing data**. Train accuracy was 82%.
+* Consideres a feature vector where a given term represents the number of times it appears
+* MNB assumes that the value of a particular feature is independent of the value of any other feature
+* Multinomial Bayes produces an **accuracy of 78% on testing data**. Train accuracy was 82%.
 
 ![picture](Images/MNB_Scores.png)
 
-        - This model achieves 77% precision in finding the positive sentiment. 
-        - F1 score for positive sentiment is 79% while for negative sentiment it is 76%.
+* This model achieves 77% precision in finding the positive sentiment. 
+* F1 score for positive sentiment is 79% while for negative sentiment it is 76%.
 
 **Logistic Regression**
-        - Logistic Regression uses a cost function called Sigmoid function(between 0 and 1)
-        - Sigmoid function maps predicted values to a value between 0 and 1
-        - Logistic regression assumes that the dependent variable is categorical in nature and the independent 
-          variable should not have multi-collinearity.
-        - LR produces an **accuracy of 79% on testing data**. Train accuracy was 83%.
+* Logistic Regression uses a cost function called Sigmoid function(between 0 and 1)
+* Sigmoid function maps predicted values to a value between 0 and 1
+* Logistic regression assumes that the dependent variable is categorical in nature and the independent 
+  variable should not have multi-collinearity.
+* LR produces an **accuracy of 79% on testing data**. Train accuracy was 83%.
 
 ![picture](Images/LR_Scores.png)
 
-        - This model achieves 78% precision in finding the positive sentiment. 
-        - F1 score for positive sentiment is 80% while for negative sentiment it is 77%.
+* This model achieves 78% precision in finding the positive sentiment. 
+* F1 score for positive sentiment is 80% while for negative sentiment it is 77%.
 
 * As discussed earlier, human raters typically only agree about 80% of the time. Accuracy above 70% is doing nearly  
   as well as humans. 
