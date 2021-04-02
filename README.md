@@ -6,7 +6,7 @@ Sentiment analysis is also known as opinion mining and emotion AI. It is a NLP t
 
 ## Data
 
-* This data comes from [Twitter](https://www.kaggle.com/kazanova/sentiment140) classified as positive or negative based on emoji. The creators used Twitter API to extract 1.6 Million tweets with emoticons in them. They left the emoticons out in the training set. The dataset is equally divided so that 800,000 tweets are positive and 800,000 tweets are negative. Since the sentiment in the dataset is only classified based on emoticons, any model built using this dataset may have lower than expected accuracy.
+* This data comes from [Twitter](https://www.kaggle.com/kazanova/sentiment140) classified as positive or negative based on emoji. The creators used Twitter API to extract 1.6 Million tweets with emoticons in them( this type of training data is abundantly available and can be obtained through automated means). They left the emoticons out in the training set. The dataset is equally divided so that 800,000 tweets are positive and 800,000 tweets are negative. Since the sentiment in the dataset is only classified based on emoticons, any model built using this dataset may have lower than expected accuracy.
 
 * There are 6 columns:
     1. **target**: polarity of tweet
@@ -30,16 +30,13 @@ Sentiment analysis is also known as opinion mining and emotion AI. It is a NLP t
 
 * The following steps were taken for data cleaning:
 
-    - In order to feed our text data to a classification model, we first need to tokenize it.
-    - Tokenization is the process of splitting up a single string of text into a list of individual words, or tokens.
-    - Python has a built in string method: string.split(), that splits up any given string into a list based on a  
-      splitting character
-
-    1. **Stemming**:  Reduces a word to the base or root word using PorterStemmer
-    2. **Lowercase**: Lowercase the tweets
-    3. **Remove**:    Removal of English stop words, common words specifically picked looking at dataset(such as  
+    1. **Tojenization**: Tokenization is the process of splitting up a single string of text into a list of  
+                         individual words, or tokens. In order to feed our text data to a classification model, we first need to tokenize it. Python has a built in string method(string.split()), that splits up any given string into a list based on a splitting character
+    2. **Stemming**:  Reduces a word to the base or root word using PorterStemmer
+    3. **Lowercase**: Lowercase the tweets
+    4. **Remove**:    Removal of English stop words, common words specifically picked looking at dataset(such as  
                       tweet), punctuation, weblinks
-    4. **Rename**:    Rename a few commonly mispelled words
+    5. **Rename**:    Rename a few commonly mispelled words
                       
 
 ## EDA
@@ -76,39 +73,59 @@ Sentiment analysis is also known as opinion mining and emotion AI. It is a NLP t
 
 ## Model Predictions
 
-According to [research](https://en.wikipedia.org/wiki/Sentiment_analysis) "the accuracy of a sentiment analysis system is, in principle, how well it agrees with human judgments. This is usually measured by variant measures based on precision and recall over the two target categories of negative and positive texts. However, according to research human raters typically only agree about 80% of the time. Thus, a program that achieves 70% accuracy in classifying sentiment is doing nearly as well as humans, even though such accuracy may not sound impressive." Our goal is to achieve an accuracy as close to 80% as possible.
+**Overview**
 
-* Multinomial Naïve Bayes uses term frequency. It consideres a feature vector where a given term represents the number of times it appears. MNB assumes that the value of a particular feature is independent of the value of any other feature, given the class variable.
+According to [research](https://en.wikipedia.org/wiki/Sentiment_analysis) "the accuracy of a sentiment analysis system is, in principle, how well it agrees with human judgments. This is usually measured by variant measures based on precision and recall over the two target categories of negative and positive texts. However, according to research human raters typically only agree about 80% of the time. Thus, a program that achieves 70% accuracy in classifying sentiment is doing nearly as well as humans, even though such accuracy may not sound impressive." Our goal is to achieve an accuracy close to 80%.
 
-* Using Amazon Sagemaker, the complete dataset was used
-* CountVectorizer was used to tokenize the tweets and build a word vocabulary.
+Using AWS Sagemaker, Multinomial Baive Bayes and Logistic Regression models were implemented on the full dataset. Test size was 5% of the dataset.
 
-* Multinomial Bayes produced the **highest accuracy at 76%**.
+**Feature Weighting**
+         - Using TF-IDF, weights are assigned to words. Words unique to a particular document have higher weight than 
+           common words used across documents.
+         - TF-IDF means Term Frequency — Inverse Document Frequency
+         - TD-IDF is a statistic which defines how important a word is for a document
+         - If a word appears in a document, TD-IDF is increased but if it appears in other docuements, TD-IDF value  
+           decreases.
+* Using N_gram range  = 1,2 and max_features = 500,000 provided the greatest accuracy
 
-    ![picture](Images/Scores.png)
+**Model Selection**
 
-    ![picture](Images/MNB_Confusion_Matrix.png)
-    
-* This model achieves 78% precision in finding the positive sentiment. 
+**Multinomial Naïve Bayes** 
+        - Consideres a feature vector where a given term represents the number of times it appears
+        - MNB assumes that the value of a particular feature is independent of the value of any other feature
+        - Multinomial Bayes produces an **accuracy of 78% on testing data**. Train accuracy was 82%.
 
-* F1 score for positive sentiment is 77% while for negative sentiment it is 76%.
+![picture](Images/MNB_Scores.png)
+
+        - This model achieves 77% precision in finding the positive sentiment. 
+        - F1 score for positive sentiment is 79% while for negative sentiment it is 76%.
+
+**Logistic Regression**
+        - Logistic Regression uses a cost function called Sigmoid function(between 0 and 1)
+        - Sigmoid function maps predicted values to a value between 0 and 1
+        - Logistic regression assumes that the dependent variable is categorical in nature and the independent 
+          variable should not have multi-collinearity.
+        - LR produces an **accuracy of 79% on testing data**. Train accuracy was 83%.
+
+![picture](Images/LR_Scores.png)
+
+        - This model achieves 78% precision in finding the positive sentiment. 
+        - F1 score for positive sentiment is 80% while for negative sentiment it is 77%.
 
 * As discussed earlier, human raters typically only agree about 80% of the time. Accuracy above 70% is doing nearly  
   as well as humans. 
+
+**Logistic Regression** is the chosen model due to slightly higher accuracy and precision scores.
 
 
 ## Conclusion
 
 The applications of sentiment analysis are endless. During the 2012 election, the **Obama administration** used sentiment analysis to gauge public opinion to policy announcements and campaign messages. Companies use social media to look at **customer reviews**, survey responses and competitors. The **finance industry** also uses it in making stock predictions by understanding customers’ sentiment toward certain brands. 
 
-With a **75%** accuracy level we have a good model to make predictions on new tweets. 
+With a **79%** accuracy level we have a good model to make predictions on new tweets. 
 
-Using Flask, I've created a sentiment predictor that can be used for testing new tweets. Nevertheless, this model has various shortcomings.
+Using Flask, I've created a sentiment predictor that can be used for testing new tweets. This model predicts "love" as positive with 99.2% probability. The model handles negations properly with "Today is a good day" having positive sentiment with 96% probability and "Today is not a good day" having negative sentiment with 96% probability. The model does not handle emojis properly because these were taken out of the training data by the creators of the data set. If the predictor has not encountered a word before, it will be less accurate with properly classifying it and would output a random sentiment.
 
-As the model only evaluates sentences at an independent word level, it performs very poorly when it comes to negations and other multi-words constructs. For example, is the model gets the following input: The concert was good!, it would simply take each individual word (here, and after cleaning the input, \"concert\" and \"good\") and calculate each word's probability to be either positive and negative and finally multiply everything together. Thus, we would expect the model to perform poorly on examples such: The concert was not good! or I'm not very happy :(
-    As it never encountered any of these words before, therefore it is unable to properly classify it, and would simply output a random choice.
-
-vectorizer = TfidfVectorizer(ngram_range=(1,2), max_features=500000)  5% of data set for test
 ## Future Research
 
     1. Word2Vec was explored and most common words for love were "looov, luv, amaz, ador, stun". I'd like to   
@@ -126,6 +143,8 @@ vectorizer = TfidfVectorizer(ngram_range=(1,2), max_features=500000)  5% of data
 [Wiki Sentiment Analysis](https://en.wikipedia.org/wiki/Sentiment_analysis)
 
 [Botometer](https://botometer.osome.iu.edu/)
+
+[TF-IDF Explained](https://towardsdatascience.com/tf-idf-explained-and-python-sklearn-implementation-b020c5e83275)
 
 [Sentiment Analysis](https://medium.com/retailmenot-engineering/sentiment-analysis-series-1-15-min-reading-b807db860917)
 
