@@ -112,8 +112,8 @@ Using AWS Sagemaker, Multinomial Baive Bayes and Logistic Regression models were
 * This model achieves 78% precision in finding the positive sentiment. 
 * F1 score for positive sentiment is 80% while for negative sentiment it is 77%.
 
-* As discussed earlier, human raters typically only agree about 80% of the time. Accuracy above 70% is doing nearly  
-  as well as humans. 
+* As discussed earlier, human raters typically only agree about 80% of the time. 
+* Accuracy above 70% is doing nearly as well as humans. 
 
 **Logistic Regression** is the chosen model due to slightly higher accuracy and precision scores.
 
