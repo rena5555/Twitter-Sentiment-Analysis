@@ -105,7 +105,7 @@ Using AWS Sagemaker, Multinomial Baive Bayes and Logistic Regression models were
 * LR produces an **accuracy of 79% on testing data**. Train accuracy was 83%.
 
 ![picture](Images/LR_Scores.png)
-![picture](Images/MNB_Confusion_Matrix.png)
+![picture](Images/LR_CM.png)
 
 * This model achieves 78% precision in finding the positive sentiment. 
 * F1 score for positive sentiment is 80% while for negative sentiment it is 77%.
