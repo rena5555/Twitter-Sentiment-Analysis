@@ -94,9 +94,6 @@ Using AWS Sagemaker, Multinomial Baive Bayes and Logistic Regression models were
 * Consideres a feature vector where a given term represents the number of times it appears
 * MNB assumes that the value of a particular feature is independent of the value of any other feature
 * Multinomial Bayes produces an **accuracy of 78% on testing data**. Train accuracy was 82%.
-
-![picture](Images/MNB_Scores.png)
-
 * This model achieves 77% precision in finding the positive sentiment. 
 * F1 score for positive sentiment is 79% while for negative sentiment it is 76%.
 
@@ -108,6 +105,7 @@ Using AWS Sagemaker, Multinomial Baive Bayes and Logistic Regression models were
 * LR produces an **accuracy of 79% on testing data**. Train accuracy was 83%.
 
 ![picture](Images/LR_Scores.png)
+![picture](Images/MNB_Confusion_Matrix.png)
 
 * This model achieves 78% precision in finding the positive sentiment. 
 * F1 score for positive sentiment is 80% while for negative sentiment it is 77%.
