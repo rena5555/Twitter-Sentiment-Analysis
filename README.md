@@ -44,7 +44,6 @@ Sentiment analysis is also known as opinion mining and emotion AI. It is a NLP t
 * These are the most common top 10 usernames:
 
     ![picture](Images/Top_Ten_Usernames.png)
-    ![picture](Images/Xception.png)
 
     * What_bugs_you username has the most tweets and looking at the tweets below
     * This is most likely a Twitter bot
